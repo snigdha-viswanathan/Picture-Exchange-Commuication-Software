@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="ssn.codebreakers.pecsinstructor.HomeScreenActivity">
+    tools:context="ssn.codebreakers.pecsinstructor.ImagePickerExampleActivity">
 
-    <Button
-        android:text="Add Student"
+    <ImageView
+        android:id="@+id/selectedImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="200dp" />
     <Button
-        android:id="@+id/imagePickerButton"
-        android:text="Image Picker Sample"
+        android:id="@+id/selectImageButton"
+        android:text="Select Image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 </LinearLayout>
