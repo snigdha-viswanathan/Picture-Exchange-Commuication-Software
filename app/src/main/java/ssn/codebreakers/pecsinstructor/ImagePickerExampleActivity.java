@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
 import ssn.codebreakers.pecsinstructor.helpers.ImagePicker;
 
+/*
+    Example Activity to show the use of ImagePicker API
+ */
 public class ImagePickerExampleActivity extends AppCompatActivity {
 
     ImagePicker imagePicker;

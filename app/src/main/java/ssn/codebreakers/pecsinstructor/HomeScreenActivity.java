@@ -15,12 +15,20 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         final Button imagePickerButton = findViewById(R.id.imagePickerButton);
+        final Button fileUploaderButton = findViewById(R.id.fileUploaderButton);
 
         //open imagepicker sample activity on button click
         imagePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ImagePickerExampleActivity.class));
+            }
+        });
+
+        fileUploaderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), FileUploaderExampleActivity.class));
             }
         });
     }
