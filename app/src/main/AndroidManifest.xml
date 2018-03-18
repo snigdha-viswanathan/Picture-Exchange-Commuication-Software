@@ -36,7 +36,11 @@
         <activity android:name=".ImagePickerExampleActivity" />
         <activity android:name=".FileUploaderExampleActivity" />
 
-        <service android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService" android:enabled="true" />
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <activity android:name=".DatabaseSampleActivity"></activity>
     </application>
 
 </manifest>
