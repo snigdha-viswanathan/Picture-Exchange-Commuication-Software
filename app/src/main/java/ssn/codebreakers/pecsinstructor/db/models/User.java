@@ -14,6 +14,7 @@ public class User
     private String name;
     private String dpId;
     private String localDpPath;
+    private String phoneNumber;
 
     public String getId() {
         return id;
@@ -55,4 +56,11 @@ public class User
         this.localDpPath = localDpPath;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

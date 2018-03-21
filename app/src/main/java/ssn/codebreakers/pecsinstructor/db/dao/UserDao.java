@@ -22,6 +22,9 @@ public interface UserDao
     @Query("SELECT * FROM User WHERE instructor = 0")
     List<User> getAutisticUsers();
 
+    @Query("SELECT * FROM User WHERE id = :id")
+    User getUser(String id);
+
     @Update
     void updateUser(User user);
 

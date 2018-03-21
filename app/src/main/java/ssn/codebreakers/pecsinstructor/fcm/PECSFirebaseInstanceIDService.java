@@ -5,6 +5,9 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
+import ssn.codebreakers.pecsinstructor.helpers.Callback;
+
 public class PECSFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "PECSInstructorFirebase";
     @Override
@@ -16,7 +19,18 @@ public class PECSFirebaseInstanceIDService extends FirebaseInstanceIdService {
         sendRegistrationToServer(refreshedToken);
     }
 
+    //TODO : sendRegistrationToServer each time app starts
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        APIHelper.updateFCMToken(getApplicationContext(), new Callback() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(Object error) {
+
+            }
+        });
     }
 }

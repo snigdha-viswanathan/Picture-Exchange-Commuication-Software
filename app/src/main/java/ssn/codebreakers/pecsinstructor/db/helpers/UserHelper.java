@@ -33,4 +33,12 @@ public class UserHelper
         localDatabase.close();
         return users;
     }
+
+    public static User getUser(Context context, String userId)
+    {
+        LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        User user = localDatabase.userDao().getUser(userId);
+        localDatabase.close();
+        return user;
+    }
 }

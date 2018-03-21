@@ -12,10 +12,14 @@ import ssn.codebreakers.pecsinstructor.db.TimestampConverter;
 @Entity
 public class Message
 {
+    public static final int SIMPLE_MESSAGE = 1;
+    public static final int VIDEO_MESSAGE = 2;
+
     @PrimaryKey
     @NonNull
     private String id;
     private String fromUserId;
+    private String toUserId;
     @TypeConverters({TimestampConverter.class})
     private Date messageTime;
     private int messageType;//type of the message. Simple Message or Video Message
@@ -36,6 +40,14 @@ public class Message
 
     public void setFromUserId(String fromUserId) {
         this.fromUserId = fromUserId;
+    }
+
+    public String getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(String toUserId) {
+        this.toUserId = toUserId;
     }
 
     public Date getMessageTime() {

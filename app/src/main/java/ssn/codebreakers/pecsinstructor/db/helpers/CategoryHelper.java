@@ -17,6 +17,14 @@ public class CategoryHelper
         localDatabase.close();
     }
 
+    public static Category getCategory(Context context, String categoryId)
+    {
+        LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        Category category = localDatabase.categoryDao().get(categoryId);
+        localDatabase.close();
+        return category;
+    }
+
     public static List<Category> getAllCategories(Context context)
     {
         LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();

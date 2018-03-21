@@ -16,7 +16,7 @@ import ssn.codebreakers.pecsinstructor.db.models.SimpleMessage;
 import ssn.codebreakers.pecsinstructor.db.models.User;
 import ssn.codebreakers.pecsinstructor.db.models.VideoMessage;
 
-@Database(entities = {User.class, Card.class, Category.class, Message.class, SimpleMessage.class, VideoMessage.class}, version = 3)
+@Database(entities = {User.class, Card.class, Category.class, Message.class, SimpleMessage.class, VideoMessage.class}, version = 5)
 public abstract class LocalDatabase extends RoomDatabase
 {
     public abstract UserDao userDao();
