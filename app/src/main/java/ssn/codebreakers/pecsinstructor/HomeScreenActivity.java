@@ -17,6 +17,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         final Button imagePickerButton = findViewById(R.id.imagePickerButton);
         final Button fileUploaderButton = findViewById(R.id.fileUploaderButton);
         final Button databaseButton = findViewById(R.id.databaseButton);
+        final Button recordVideoButton = findViewById(R.id.recordVideo);
 
         //open imagepicker sample activity on button click
         imagePickerButton.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +38,13 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), DatabaseSampleActivity.class));
+            }
+        });
+
+        recordVideoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RecordVideoSampleActivity.class));
             }
         });
     }

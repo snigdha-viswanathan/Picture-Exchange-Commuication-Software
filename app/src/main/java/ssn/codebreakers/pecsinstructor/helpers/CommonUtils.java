@@ -2,7 +2,9 @@ package ssn.codebreakers.pecsinstructor.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.UUID;
 
 import ssn.codebreakers.pecsinstructor.db.helpers.UserHelper;
@@ -36,5 +38,13 @@ public class CommonUtils
     public static User getSelfUser(Context context)
     {
         return UserHelper.getUser(context, getSelfUserID(context));
+    }
+
+    public static File getAppFolder()
+    {
+        File destinationFolder = new File(Environment.getExternalStorageDirectory() + File.separator + "pecsins");
+        if(!destinationFolder.exists())
+            destinationFolder.mkdirs();
+        return destinationFolder;
     }
 }
