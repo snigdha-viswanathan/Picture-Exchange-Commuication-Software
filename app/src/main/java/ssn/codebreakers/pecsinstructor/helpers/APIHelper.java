@@ -144,13 +144,30 @@ public class APIHelper
      * Adding an instructor for an autistic person in remote db
      * @param phoneNumber phone number of the instructor to identity him
      */
-    public static void addInstructor(Context context, String phoneNumber, Callback callback)
+    public static void addInstructor(final Context context, String phoneNumber, final Callback callback)
     {
         try {
             JSONObject parameters = new JSONObject();
             parameters.put("phone_number", phoneNumber);
-            parameters.put("user_id", CommonUtils.getSelfUserID(context));
-            sendJsonRequest(context, parameters, getAPIURL("AddInstructor"), callback);
+            parameters.put("user", new Gson().toJson(CommonUtils.getSelfUser(context)));
+            sendJsonRequest(context, parameters, getAPIURL("AddInstructor"), new Callback() {
+                @Override
+                public void onSuccess(Object result) {
+                    JSONObject jsonResponse = (JSONObject) result;
+                    try {
+                        User instructor = new Gson().fromJson(jsonResponse.getString("instructor"), User.class);
+                        UserHelper.addUser(context, instructor);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    callback.onSuccess(result);
+                }
+
+                @Override
+                public void onError(Object error) {
+                    callback.onError(error);
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
             callback.onError(e.getMessage());
