@@ -1,8 +1,12 @@
 package ssn.codebreakers.pecsinstructor.helpers;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 
 import java.io.File;
 import java.util.UUID;
@@ -15,6 +19,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class CommonUtils
 {
     private static final String USER_PREF = "user_preference";
+    private static final int WRITE_PERMISSION_REQUEST = 300;
 
     public static String getUniqueRandomID()
     {
@@ -46,5 +51,14 @@ public class CommonUtils
         if(!destinationFolder.exists())
             destinationFolder.mkdirs();
         return destinationFolder;
+    }
+
+    public static void checkAndAskFilePermission(Activity activity)
+    {
+        PackageManager pm = activity.getPackageManager();
+        int hasPerm = pm.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, activity.getPackageName());
+        if (hasPerm != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, WRITE_PERMISSION_REQUEST);
+        }
     }
 }

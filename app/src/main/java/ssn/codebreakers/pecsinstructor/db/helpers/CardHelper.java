@@ -8,11 +8,15 @@ import java.util.List;
 
 import ssn.codebreakers.pecsinstructor.db.LocalDatabase;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
+import ssn.codebreakers.pecsinstructor.helpers.S3Helper;
 
 public class CardHelper
 {
     public static void addCard(Context context, Card card)
     {
+        if(card.getImageId() != null && card.getLocalImagePath() == null)//download image from s3
+            S3Helper.downloadCardImage(context, card);
+
         LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         localDatabase.cardDao().addCard(card);
         localDatabase.close();

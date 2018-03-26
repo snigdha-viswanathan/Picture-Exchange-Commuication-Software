@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
+import ssn.codebreakers.pecsinstructor.helpers.Callback;
+import ssn.codebreakers.pecsinstructor.helpers.CommonUtils;
+
 public class HomeScreenActivity extends AppCompatActivity {
 
 
@@ -45,6 +49,20 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RecordVideoSampleActivity.class));
+            }
+        });
+
+        //add these two lines in the starting activity
+        CommonUtils.checkAndAskFilePermission(this);
+        APIHelper.updateFCMToken(getApplicationContext(), new Callback() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onError(Object error) {
+
             }
         });
     }
