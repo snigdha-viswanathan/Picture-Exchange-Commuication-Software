@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/imagePickerButton"
-        android:text="Image Picker Sample"
+        android:text="gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

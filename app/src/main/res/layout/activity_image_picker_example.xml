@@ -8,13 +8,19 @@
     android:gravity="center"
     tools:context="ssn.codebreakers.pecsinstructor.ImagePickerExampleActivity">
 
+    <Button
+        android:id="@+id/selectImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="Upload from Gallery" />
+
     <ImageView
         android:id="@+id/selectedImage"
         android:layout_width="wrap_content"
         android:layout_height="200dp" />
-    <Button
-        android:id="@+id/selectImageButton"
-        android:text="Select Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name the category" />
 </LinearLayout>
