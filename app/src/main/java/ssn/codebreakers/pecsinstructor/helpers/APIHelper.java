@@ -10,9 +10,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
@@ -188,6 +191,70 @@ public class APIHelper
         }
     }
 
+    public static void getCardsForWord(Context context, final List<List<Card>> cards, final List<Category> categoryList, String word, final Callback callback)
+    {
+        try {
+            JSONObject parameters = new JSONObject();
+            parameters.put("word", word);
+            sendJsonRequest(context, parameters, getAPIURL("GetCardsForWord"), new Callback() {
+                @Override
+                public void onSuccess(Object result) {
+                    JSONObject jsonResponse = (JSONObject) result;
+                    Gson gson = new Gson();
+                    try {
+                        List<List<Card>> tmpCards = gson.fromJson(jsonResponse.getString("cards"), new TypeToken<List<List<Card>>>(){}.getType());
+                        List<Category> tmpCategories = gson.fromJson(jsonResponse.getString("categories"), new TypeToken<List<Category>>(){}.getType());
+                        cards.addAll(tmpCards);
+                        categoryList.addAll(tmpCategories);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    callback.onSuccess(result);
+                }
+
+                @Override
+                public void onError(Object error) {
+                    callback.onError(error);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            callback.onError(e.getMessage());
+        }
+    }
+
+    public static void getCardsForSentence(Context context, final List<List<Card>> cards,final List<Category> categoryList, String sentence, final Callback callback)
+    {
+        try {
+            JSONObject parameters = new JSONObject();
+            parameters.put("sentence", sentence);
+            sendJsonRequest(context, parameters, getAPIURL("GetCardsForSentence"), new Callback() {
+                @Override
+                public void onSuccess(Object result) {
+                    JSONObject jsonResponse = (JSONObject) result;
+                    Gson gson = new Gson();
+                    try {
+                        List<List<Card>> tmpCards = gson.fromJson(jsonResponse.getString("cards"), new TypeToken<List<List<Card>>>(){}.getType());
+                        List<Category> tmpCategories = gson.fromJson(jsonResponse.getString("categories"), new TypeToken<List<Category>>(){}.getType());
+                        cards.addAll(tmpCards);
+                        categoryList.addAll(tmpCategories);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    callback.onSuccess(result);
+                }
+
+                @Override
+                public void onError(Object error) {
+                    callback.onError(error);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            callback.onError(e.getMessage());
+        }
+    }
+
     private static void sendJsonRequest(Context context, JSONObject parameters, String url, final Callback callback)
     {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
@@ -285,6 +352,29 @@ public class APIHelper
             @Override
             public void onError(Object error) {
                 System.out.println("card update failed");
+            }
+        });
+
+
+        final List<List<Card>> listOfCards = new ArrayList<>();
+        final List<Category> categories = new ArrayList<>();
+        APIHelper.getCardsForWord(getApplicationContext(), listOfCards, categories, "eat", new Callback() {
+            @Override
+            public void onSuccess(Object result) {
+                for(List<Card> cards: listOfCards)
+                {
+                    System.out.println("option 1");
+                    for(Card card: cards)
+                        System.out.println(card.getText()+":"+card.getImageId());
+                }
+                for(Category category: categories)
+                    System.out.println("category : "+category.getName());
+
+            }
+
+            @Override
+            public void onError(Object error) {
+
             }
         });
      */

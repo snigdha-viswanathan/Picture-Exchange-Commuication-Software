@@ -62,7 +62,7 @@ public class FileUploaderExampleActivity extends AppCompatActivity {
                             public void onError(Object error) {
                                 statusView.setText("uploading error"+error);
                             }
-                        });
+                        } );
                     }
 
                     @Override
