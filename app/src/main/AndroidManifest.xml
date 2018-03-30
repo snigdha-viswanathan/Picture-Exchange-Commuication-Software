@@ -34,14 +34,18 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ImagePickerExampleActivity" />
         <activity android:name=".FileUploaderExampleActivity" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
+
         <activity android:name=".RecordVideoSampleActivity" />
-        <activity android:name=".DatabaseSampleActivity"></activity>
+        <activity android:name=".DatabaseSampleActivity" />
+        <activity android:name=".GalleryActivity" />
+        <activity android:name=".CategoryCardsActivity" />
+        <activity android:name=".AddCategoryActivity" />
+        <activity android:name=".AddCardsActivity" />
     </application>
 
 </manifest>
