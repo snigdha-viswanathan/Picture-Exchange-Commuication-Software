@@ -36,6 +36,8 @@ public class CardHelper
         Random random = new Random();
         int randomId = random.nextInt(cards.size());
         return cards.get(randomId);
+
+
     }
 
     public static List<Card> getCardsOfCategory(Context context, String categoryId)

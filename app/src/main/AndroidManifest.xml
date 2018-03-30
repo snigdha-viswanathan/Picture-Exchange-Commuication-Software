@@ -34,7 +34,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ImagePickerExampleActivity" />
         <activity android:name=".FileUploaderExampleActivity" />
 
         <service
@@ -43,8 +42,13 @@
 
         <activity android:name=".RecordVideoSampleActivity" />
         <activity android:name=".DatabaseSampleActivity" />
+
         <activity android:name=".GameScreenActivity" />
         <activity android:name=".GameLevelsActivity"></activity>
+        <activity android:name=".GalleryActivity" />
+        <activity android:name=".CategoryCardsActivity" />
+        <activity android:name=".AddCategoryActivity" />
+        <activity android:name=".AddCardsActivity" />
     </application>
 
 </manifest>

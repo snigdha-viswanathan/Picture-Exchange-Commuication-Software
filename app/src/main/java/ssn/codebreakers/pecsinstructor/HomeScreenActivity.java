@@ -33,7 +33,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         imagePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ImagePickerExampleActivity.class));
+                startActivity(new Intent(getApplicationContext(), GalleryActivity.class));
             }
         });
 

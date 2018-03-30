@@ -1,5 +1,7 @@
 package ssn.codebreakers.pecsinstructor;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,15 +71,16 @@ public class GameLevelsActivity extends AppCompatActivity {
            final int randomCardNo = random.nextInt(3);
           final Card randomSuccessCard = mapOfCards.get(randomCardNo);
 
-            Uri.Builder uriBuilder = new Uri.Builder();
-            imageView1.setImageURI(uriBuilder.path(cards1.getLocalImagePath()).build());
-            imageView1.setImageResource(R.drawable.none);
-            Uri.Builder uriBuilder1 = new Uri.Builder();
-            imageView2.setImageURI(uriBuilder1.path(cards2.getLocalImagePath()).build());
-            imageView2.setImageResource(R.drawable.none);
-            Uri.Builder uriBuilder2 = new Uri.Builder();
-            imageView3.setImageURI(uriBuilder2.path(cards3.getLocalImagePath()).build());
-            imageView3.setImageResource(R.drawable.none);
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(cards1.getLocalImagePath(), bmOptions);
+            //bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            imageView1.setImageBitmap(bitmap);
+            Bitmap bitmap2 = BitmapFactory.decodeFile(cards2.getLocalImagePath(), bmOptions);
+            //bitmap2 = Bitmap.createScaledBitmap(bitmap2, 100, 100, true);
+            imageView2.setImageBitmap(bitmap2);
+            Bitmap bitmap3 = BitmapFactory.decodeFile(cards3.getLocalImagePath(), bmOptions);
+            //bitmap3 = Bitmap.createScaledBitmap(bitmap3, 100, 100, true);
+            imageView3.setImageBitmap(bitmap3);
 
               searchImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
