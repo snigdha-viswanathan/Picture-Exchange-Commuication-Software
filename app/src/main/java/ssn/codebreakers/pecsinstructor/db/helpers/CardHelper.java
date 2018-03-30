@@ -14,6 +14,7 @@ public class CardHelper
 {
     public static void addCard(Context context, Card card)
     {
+        System.out.println("image id"+card.getImageId()+":"+card.getLocalImagePath());
         if(card.getImageId() != null && card.getLocalImagePath() == null)//download image from s3
             S3Helper.downloadCardImage(context, card);
 

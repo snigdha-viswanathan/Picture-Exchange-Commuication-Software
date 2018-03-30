@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 import java.io.File;
+import java.util.UUID;
 
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 
@@ -33,6 +34,7 @@ public class S3Helper
         File folder = CommonUtils.getAppFolder();
         File downloadFile = new File(folder, "image"+CommonUtils.getUniqueRandomID()+".jpg");
         card.setLocalImagePath(downloadFile.getAbsolutePath());
+        card.setId(UUID.randomUUID().toString());
         TransferUtility transferUtility = TransferUtility.builder()
                                             .context(context)
                                             .s3Client(s3)

@@ -34,7 +34,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ImagePickerExampleActivity" />
         <activity android:name=".FileUploaderExampleActivity" />
 
         <service
@@ -50,7 +49,11 @@
         <activity android:name=".RecordVideo3" />
         <activity android:name=".PreviewVideo3" />
         <activity android:name=".TitleActivity" />
-        <activity android:name=".OptionsActivity"></activity>
+        <activity android:name=".OptionsActivity" />
+        <activity android:name=".GalleryActivity" />
+        <activity android:name=".CategoryCardsActivity" />
+        <activity android:name=".AddCategoryActivity" />
+        <activity android:name=".AddCardsActivity" />
     </application>
 
 </manifest>

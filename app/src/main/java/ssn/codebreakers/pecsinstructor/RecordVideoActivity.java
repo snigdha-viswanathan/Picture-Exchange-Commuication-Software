@@ -67,7 +67,10 @@ public class RecordVideoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 videoRecorder.stop();
                 Intent intent = new Intent(RecordVideoActivity.this, PreviewVideoActivity.class);
-                intent.putExtra("video_url", destinationFile.getAbsolutePath());
+                intent.putExtra("listOfCards",getIntent().getStringExtra("listOfCards"));
+                intent.putExtra("categories",getIntent().getStringExtra("categories"));
+                intent.putExtra("video_url1", destinationFile.getAbsolutePath());
+                intent.putExtra("word",getIntent().getStringExtra("word"));
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "video recorded "+destinationFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
             }

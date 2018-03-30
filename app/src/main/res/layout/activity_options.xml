@@ -14,24 +14,39 @@
         android:text="Options"
         android:padding="20dp" />
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="0.33"
-            android:src="@drawable/apple" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="0.33"
-            android:src="@drawable/orange" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="0.33"
-            android:src="@drawable/berry" />
+        <GridView
+            android:id="@+id/gridView1"
+            android:numColumns="auto_fit"
+            android:layout_gravity="center"
+            android:columnWidth="100dp"
+            android:stretchMode="columnWidth"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </GridView>
+        <GridView
+            android:id="@+id/gridView2"
+            android:numColumns="auto_fit"
+            android:layout_gravity="center"
+            android:columnWidth="100dp"
+            android:stretchMode="columnWidth"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </GridView>
+        <GridView
+            android:id="@+id/gridView3"
+            android:numColumns="auto_fit"
+            android:layout_gravity="center"
+            android:columnWidth="100dp"
+            android:stretchMode="columnWidth"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </GridView>
 
     </LinearLayout>
 

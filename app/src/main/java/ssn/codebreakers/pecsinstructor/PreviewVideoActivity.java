@@ -17,8 +17,8 @@ public class PreviewVideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_video);
         VideoView preview = (VideoView) findViewById(R.id.Preview);
-        String videoUrl = getIntent().getStringExtra("video_url");
-        preview.setVideoPath(videoUrl);
+        String videoUrl1 = getIntent().getStringExtra("video_url1");
+        preview.setVideoPath(videoUrl1);
         preview.start();
 
 
@@ -35,7 +35,12 @@ public class PreviewVideoActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
         @Override
           public void onClick(View v) {
-         startActivity(new Intent(getApplicationContext(), RecordVideo2.class));
+            Intent intent = new Intent(PreviewVideoActivity.this, RecordVideo2.class);
+            intent.putExtra("listOfCards",getIntent().getStringExtra("listOfCards"));
+            intent.putExtra("categories",getIntent().getStringExtra("categories"));
+            intent.putExtra("video_url1", getIntent().getStringExtra("video_url1"));
+            intent.putExtra("word",getIntent().getStringExtra("word"));
+            startActivity(intent);
          }
          });
     }
