@@ -48,7 +48,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         recordVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RecordVideoSampleActivity.class));
+                startActivity(new Intent(getApplicationContext(), TitleActivity.class));
             }
         });
 
