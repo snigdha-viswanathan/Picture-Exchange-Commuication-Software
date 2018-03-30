@@ -42,6 +42,14 @@
 
         <activity android:name=".RecordVideoSampleActivity" />
         <activity android:name=".DatabaseSampleActivity" />
+        <activity android:name=".RecordVideoActivity" />
+        <activity android:name=".PreviewVideoActivity" />
+        <activity android:name=".RecordVideo2" />
+        <activity android:name=".PreviewVideo2" />
+        <activity android:name=".RecordVideo3" />
+        <activity android:name=".PreviewVideo3" />
+        <activity android:name=".TitleActivity" />
+        <activity android:name=".OptionsActivity" />
         <activity android:name=".NewHomeScreen" />
         <activity android:name=".ThreadView" />
         <activity android:name=".RegistrationActivity"/>
