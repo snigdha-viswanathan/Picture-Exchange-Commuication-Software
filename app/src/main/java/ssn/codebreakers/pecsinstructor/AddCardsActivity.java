@@ -20,6 +20,7 @@ import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
+import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
 import ssn.codebreakers.pecsinstructor.helpers.FileUploader;
 import ssn.codebreakers.pecsinstructor.helpers.ImagePicker;
@@ -65,6 +66,17 @@ public class AddCardsActivity extends AppCompatActivity {
                                 cardobj.setImageId(uploadedFileID);
                                 cardobj.setLocalImagePath(filePath);
                                 CardHelper.addCard(AddCardsActivity.this, cardobj);
+                                APIHelper.updateNewCard(getApplicationContext(), cardobj, new Callback() {
+                                    @Override
+                                    public void onSuccess(Object result) {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Object error) {
+
+                                    }
+                                });
                                 finish();
 
                             }
