@@ -22,6 +22,7 @@ import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
+import ssn.codebreakers.pecsinstructor.helpers.CommonUtils;
 import ssn.codebreakers.pecsinstructor.helpers.FileUploader;
 import ssn.codebreakers.pecsinstructor.helpers.ImagePicker;
 import ssn.codebreakers.pecsinstructor.helpers.ProgressCallback;
@@ -49,7 +50,7 @@ public class AddCardsActivity extends AppCompatActivity {
                 try {
                     final Card cardobj = new Card();
                     CardName = findViewById(R.id.CardId);
-                    cardobj.setId(CardName.getText().toString());
+                    cardobj.setId(CommonUtils.getUniqueRandomID());
                     cardobj.setCategoryId(categoryid);
                     cardobj.setText(CardName.getText().toString());
                     acknowledge = findViewById(R.id.acknowledge);
