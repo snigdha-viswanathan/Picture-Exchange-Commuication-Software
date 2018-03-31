@@ -90,8 +90,14 @@ public class CardGridAdapter extends BaseAdapter {
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         if(((Card) cards.get(position)).getLocalImagePath()!=null) {
             Bitmap bitmap = BitmapFactory.decodeFile(((Card) cards.get(position)).getLocalImagePath(), bmOptions);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
-            imageView.setImageBitmap(bitmap);
+            if(bitmap != null)
+            {
+                bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                imageView.setImageBitmap(bitmap);
+            }else
+            {
+                imageView.setImageResource(R.drawable.none);
+            }
         }
         else {
             imageView.setImageResource(R.drawable.none);

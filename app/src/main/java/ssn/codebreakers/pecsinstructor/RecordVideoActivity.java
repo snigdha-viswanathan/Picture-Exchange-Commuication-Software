@@ -77,6 +77,7 @@ public class RecordVideoActivity extends AppCompatActivity {
                 intent.putExtra("categories",getIntent().getStringExtra("categories"));
                 intent.putExtra("video_url1", destinationFile.getAbsolutePath());
                 intent.putExtra("word",getIntent().getStringExtra("word"));
+                intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
                 startActivity(intent);
                 finish();
                 //Toast.makeText(getApplicationContext(), "video recorded "+destinationFile.getAbsolutePath(), Toast.LENGTH_LONG).show();

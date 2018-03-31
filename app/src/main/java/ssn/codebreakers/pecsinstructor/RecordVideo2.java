@@ -75,9 +75,10 @@ public class RecordVideo2 extends AppCompatActivity {
                 Intent intent = new Intent(RecordVideo2.this, PreviewVideo2.class);
                 intent.putExtra("listOfCards",getIntent().getStringExtra("listOfCards"));
                 intent.putExtra("categories",getIntent().getStringExtra("categories"));
-                intent.putExtra("video_url1", getIntent().getStringExtra("videourl1"));
+                intent.putExtra("video_url1", getIntent().getStringExtra("video_url1"));
                 intent.putExtra("video_url2", destinationFile2.getAbsolutePath());
                 intent.putExtra("word",getIntent().getStringExtra("word"));
+                intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
                 startActivity(intent);
                 finish();
                // Toast.makeText(getApplicationContext(), "video recorded "+destinationFile2.getAbsolutePath(), Toast.LENGTH_LONG).show();

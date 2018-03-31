@@ -8,8 +8,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:background="#64B5F6"
 
-    tools:context="ssn.codebreakers.pecs.RegistrationActivity">
+    tools:context="ssn.codebreakers.pecsinstructor.RegistrationActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,24 +21,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="YOU ARE A "
+            android:textStyle="bold"
             android:layout_marginTop="100dp"
+            android:textColor="@android:color/white"
             android:textSize="40dp"
             />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:text="Student"
             android:textSize="25dp"
             android:layout_marginTop="20dp"
             android:id="@+id/studentBtn"
+            android:background="#0D47A1"
+
+            android:textColor="@android:color/white"
             />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:text="parent"
             android:layout_marginTop="20dp"
             android:textSize="25dp"
             android:id="@+id/parentBtn"
+            android:background="#0D47A1"
+            android:textColor="@android:color/white"
             />
     </LinearLayout>
     <LinearLayout
@@ -45,6 +53,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
+
         android:id="@+id/details"
         android:layout_marginLeft="20dp">
 
@@ -58,6 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name:"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
                 android:textSize="35dp"
                 />
 
@@ -78,6 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone:"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:textSize="35dp"
                 />
 
@@ -90,14 +103,16 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="REGISTER"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
             android:textSize="28dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/register_id"/>
+            android:id="@+id/register_id"
+            android:background="#0D47A1"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </LinearLayout>

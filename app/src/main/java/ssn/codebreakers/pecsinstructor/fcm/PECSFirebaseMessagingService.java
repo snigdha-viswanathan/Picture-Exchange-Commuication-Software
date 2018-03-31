@@ -5,13 +5,20 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.SimpleMessageHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.UserHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.VideoMessageHelper;
+import ssn.codebreakers.pecsinstructor.db.models.Card;
+import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.db.models.Message;
 import ssn.codebreakers.pecsinstructor.db.models.SimpleMessage;
 import ssn.codebreakers.pecsinstructor.db.models.User;
@@ -37,9 +44,22 @@ public class PECSFirebaseMessagingService extends FirebaseMessagingService {
                     NotificationUtils.showNotification(getApplicationContext(), "New student "+ user.getName()+ " added.");
                 }else if(type.equals("message"))
                 {
+
+
                     JSONObject data = new JSONObject(dataJson.getString("data"));
                     Message message = new Gson().fromJson(data.getString("message"), Message.class);
+                    List<Card> cards = new Gson().fromJson(data.getString("cards"), new TypeToken<List<Card>>(){}.getType());
+                    for( Card card: cards) {
+                        CardHelper.addCard(getApplicationContext(),card);
+                    }
+
+                    List<Category> categories = new Gson().fromJson(data.getString("categories"), new TypeToken<List<Category>>(){}.getType());
+                    for( Category category: categories) {
+
+                        CategoryHelper.addCategory(getApplicationContext(),category);
+                    }
                     MessageHelper.addMessage(getApplicationContext(), message);
+
                     if(message.getMessageType() == Message.SIMPLE_MESSAGE)
                     {
                         SimpleMessage simpleMessage = new Gson().fromJson(data.getString("simple_message"), SimpleMessage.class);
