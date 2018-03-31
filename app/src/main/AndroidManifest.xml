@@ -39,7 +39,6 @@
         <activity android:name=".GameScreenActivity" />
         <activity android:name=".GameLevelsActivity"></activity>
 
-        <activity android:name=".NewHomeScreen" />
         <activity android:name=".RecordVideoActivity" />
         <activity android:name=".PreviewVideoActivity" />
         <activity android:name=".RecordVideo2" />
