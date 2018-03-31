@@ -71,6 +71,7 @@ public class OptionsActivity extends AppCompatActivity {
                     videoMessage.setLocalSuccessVideoPath(getIntent().getStringExtra("video_url2"));
                     videoMessage.setLocalVideoPath(getIntent().getStringExtra("video_url1"));
                     videoMessage.setId(UUID.randomUUID().toString());
+                    videoMessage.setTitle(word);
                     List<String> cardIds = new ArrayList<>();
                     String successCardId = null;
                     for (Card card : tmpCards.get(0)) {

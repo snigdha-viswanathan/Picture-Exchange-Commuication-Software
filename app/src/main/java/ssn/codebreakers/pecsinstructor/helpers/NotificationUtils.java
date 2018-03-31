@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import java.util.UUID;
 
 import ssn.codebreakers.pecsinstructor.HomeScreenActivity;
+import ssn.codebreakers.pecsinstructor.NewHomeScreen;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -69,7 +70,7 @@ public class NotificationUtils
 
     public static int showNotification(Context context, String text)
     {
-        Intent intent = new Intent(context, HomeScreenActivity.class);
+        Intent intent = new Intent(context, NewHomeScreen.class);
         return showNotification(context, text, intent);
     }
 }
