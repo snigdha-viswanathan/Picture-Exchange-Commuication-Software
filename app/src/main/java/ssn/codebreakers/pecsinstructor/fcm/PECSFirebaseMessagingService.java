@@ -1,5 +1,6 @@
 package ssn.codebreakers.pecsinstructor.fcm;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import ssn.codebreakers.pecsinstructor.ThreadView;
 import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
@@ -48,6 +50,7 @@ public class PECSFirebaseMessagingService extends FirebaseMessagingService {
 
                     JSONObject data = new JSONObject(dataJson.getString("data"));
                     Message message = new Gson().fromJson(data.getString("message"), Message.class);
+                    User fromUser = UserHelper.getUser(getApplicationContext(), message.getFromUserId());
                     List<Card> cards = new Gson().fromJson(data.getString("cards"), new TypeToken<List<Card>>(){}.getType());
                     for( Card card: cards) {
                         CardHelper.addCard(getApplicationContext(),card);
@@ -64,13 +67,15 @@ public class PECSFirebaseMessagingService extends FirebaseMessagingService {
                     {
                         SimpleMessage simpleMessage = new Gson().fromJson(data.getString("simple_message"), SimpleMessage.class);
                         SimpleMessageHelper.addSimpleMessage(getApplicationContext(), simpleMessage);
+                        Intent intent = new Intent(getApplicationContext(), ThreadView.class);
+                        intent.putExtra("user_id", message.getFromUserId());
+                        NotificationUtils.showNotification(getApplicationContext(), "New message from "+ fromUser.getName(), intent);
                     }else if(message.getMessageType() == Message.VIDEO_MESSAGE)
                     {
                         VideoMessage videoMessage = new Gson().fromJson(data.getString("video_message"), VideoMessage.class);
                         VideoMessageHelper.addVideoMessage(getApplicationContext(), videoMessage);
+                        NotificationUtils.showNotification(getApplicationContext(), "New message from "+ fromUser.getName());
                     }
-                    User fromUser = UserHelper.getUser(getApplicationContext(), message.getFromUserId());
-                    NotificationUtils.showNotification(getApplicationContext(), "New message from "+ fromUser.getName());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

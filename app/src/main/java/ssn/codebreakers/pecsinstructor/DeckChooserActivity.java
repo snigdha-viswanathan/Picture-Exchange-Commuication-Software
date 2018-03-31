@@ -13,8 +13,11 @@ import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
+import ssn.codebreakers.pecsinstructor.db.models.SimpleMessage;
 import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
+import ssn.codebreakers.pecsinstructor.helpers.CommonUtils;
+import ssn.codebreakers.pecsinstructor.helpers.ProgressCallback;
 import ssn.codebreakers.pecsinstructor.helpers.SpeechHelper;
 
 import static ssn.codebreakers.pecsinstructor.helpers.SpeechHelper.SPEECH_REQUEST_ID;
@@ -23,6 +26,7 @@ public class DeckChooserActivity extends AppCompatActivity {
     GridView grid1;
     GridView grid2;
     GridView grid3;
+    private static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class DeckChooserActivity extends AppCompatActivity {
         grid1=(GridView)findViewById(R.id.grid1);
         grid2=(GridView)findViewById(R.id.grid2);
         grid3=(GridView)findViewById(R.id.grid3);
-        String userId=getIntent().getStringExtra("user_id");
+        userId=getIntent().getStringExtra("user_id");
         System.out.println("user id="+userId);
         SpeechHelper speechHelper = new SpeechHelper(getApplicationContext(), this);
         speechHelper.speechToText();
@@ -68,19 +72,46 @@ public class DeckChooserActivity extends AppCompatActivity {
 
                         if(listOfCards.size()>0)
                         {
-                            CardGridAdapter cardGridAdapter1=new CardGridAdapter(getApplicationContext(),listOfCards.get(0));
-                            grid1.setAdapter(cardGridAdapter1);
+                            List<Card> cards = listOfCards.get(0);
+                            List<String> cardIds = new ArrayList<>();
+                            String text = "";
+                            for(Card card: cards)
+                            {
+                                cardIds.add(card.getId());
+                                text = text+card.getText();
+                            }
+                            SimpleMessage simpleMessage = new SimpleMessage();
+                            simpleMessage.setId(CommonUtils.getUniqueRandomID());
+                            simpleMessage.setCardIds(cardIds);
+                            simpleMessage.setText(text);
+                            APIHelper.saveAndSendMessage(getApplicationContext(), simpleMessage, userId, new Callback() {
+                                @Override
+                                public void onSuccess(Object result) {
+                                    finish();
+                                }
+
+                                @Override
+                                public void onError(Object error) {
+
+                                }
+                            }, new ProgressCallback() {
+                                @Override
+                                public void onSuccess(Object result) {
+
+                                }
+
+                                @Override
+                                public void onProgress(int progress) {
+
+                                }
+
+                                @Override
+                                public void onError(Object error) {
+
+                                }
+                            });
                         }
-                        if(listOfCards.size()>1)
-                        {
-                            CardGridAdapter cardGridAdapter2=new CardGridAdapter(getApplicationContext(),listOfCards.get(1));
-                            grid1.setAdapter(cardGridAdapter2);
-                        }
-                        if(listOfCards.size()>2)
-                        {
-                            CardGridAdapter cardGridAdapter3=new CardGridAdapter(getApplicationContext(),listOfCards.get(2));
-                            grid1.setAdapter(cardGridAdapter3);
-                        }
+                        finish();
 
                     }
 

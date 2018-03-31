@@ -5,13 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Demo"
+        android:textSize="20dp"
+        android:background="#BBDEFB"
         android:textColor="#000"
-        android:layout_margin="13dp"
+        android:padding="18dp"
+        android:layout_marginTop="5dp"
         />
 </LinearLayout>

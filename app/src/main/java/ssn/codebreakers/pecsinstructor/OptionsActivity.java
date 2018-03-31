@@ -71,13 +71,14 @@ public class OptionsActivity extends AppCompatActivity {
                     videoMessage.setLocalSuccessVideoPath(getIntent().getStringExtra("video_url2"));
                     videoMessage.setLocalVideoPath(getIntent().getStringExtra("video_url1"));
                     videoMessage.setId(UUID.randomUUID().toString());
+                    videoMessage.setTitle(word);
                     List<String> cardIds = new ArrayList<>();
                     String successCardId = null;
                     for (Card card : tmpCards.get(0)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                        cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
@@ -131,8 +132,8 @@ public class OptionsActivity extends AppCompatActivity {
                     for (Card card : tmpCards.get(1)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                            cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
@@ -185,8 +186,8 @@ public class OptionsActivity extends AppCompatActivity {
                     for (Card card : tmpCards.get(2)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                        cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);

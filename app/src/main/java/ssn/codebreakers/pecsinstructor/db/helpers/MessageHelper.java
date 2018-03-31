@@ -23,4 +23,14 @@ public class MessageHelper
         List<Message> messages = localDatabase.messageDao().getMessages(fromUserId);
         localDatabase.close();
     }
+    public static List<Message> getAllMessages(Context context)
+    {
+    LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+    List<Message> messages = localDatabase.messageDao().getAllMessages();
+    localDatabase.close();
+    return messages;
+}
+
+
+
 }

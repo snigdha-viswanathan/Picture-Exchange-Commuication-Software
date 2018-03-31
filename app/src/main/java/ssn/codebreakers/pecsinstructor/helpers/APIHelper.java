@@ -105,6 +105,7 @@ public class APIHelper
                 parameters.put("video_message", new Gson().toJson(messageObject));
                 parameters.put("cards",new Gson().toJson(cards));
                 parameters.put("categories",new Gson().toJson(categories));
+                System.out.println("sending json = "+parameters.toString());
             }else if(messageObject instanceof SimpleMessage)
             {
                 message.setMessageType(Message.SIMPLE_MESSAGE);
