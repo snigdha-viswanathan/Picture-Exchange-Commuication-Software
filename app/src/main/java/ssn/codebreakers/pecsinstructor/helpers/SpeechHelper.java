@@ -9,6 +9,17 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.widget.Toast;
+
+import java.util.Locale;
+
+
 public class SpeechHelper
 {
     public static final int SPEECH_REQUEST_ID = 100;
@@ -53,3 +64,4 @@ public class SpeechHelper
         }
     }
 }
+
