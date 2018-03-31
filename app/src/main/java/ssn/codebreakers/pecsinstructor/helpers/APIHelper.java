@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
@@ -39,7 +40,7 @@ public class APIHelper
      * @param messageObject VideoMessage object or SimpleMessage object
      * @param toUserId user id to send message
      */
-    public static void saveAndSendMessage(Context context, Object messageObject, String toUserId, final Callback callback)
+    public static void saveAndSendMessage(Context context, Object messageObject, String toUserId, final Callback callback, final ProgressCallback uploadCallback)
     {
         try{
             Message message = new Message();
@@ -50,8 +51,42 @@ public class APIHelper
             JSONObject parameters = new JSONObject();
             if(messageObject instanceof VideoMessage)
             {
+                final VideoMessage videoMessage = ((VideoMessage) messageObject);
+                final FileUploader fileUploader = new FileUploader(context);
+                System.out.println("local video path "+videoMessage.getVideoId()+" : "+videoMessage.getLocalVideoPath());
+                fileUploader.uploadFile(new File(videoMessage.getLocalVideoPath()), videoMessage.getVideoId(), new ProgressCallback() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        fileUploader.uploadFile(new File(videoMessage.getLocalSuccessVideoPath()), videoMessage.getSuccessVideoId(), new ProgressCallback() {
+                            @Override
+                            public void onSuccess(Object result) {
+                                fileUploader.uploadFile(new File(videoMessage.getLocalErrorVideoPath()), videoMessage.getErrorVideoId(), uploadCallback);
+                            }
+
+                            @Override
+                            public void onProgress(int progress) {
+
+                            }
+
+                            @Override
+                            public void onError(Object error) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onProgress(int progress) {
+
+                    }
+
+                    @Override
+                    public void onError(Object error) {
+
+                    }
+                });
                 message.setMessageType(Message.VIDEO_MESSAGE);
-                message.setMessageObjectId(((VideoMessage) messageObject).getId());
+                message.setMessageObjectId(videoMessage.getId());
                 VideoMessageHelper.addVideoMessage(context, (VideoMessage)messageObject);
                 parameters.put("video_message", new Gson().toJson(messageObject));
             }else if(messageObject instanceof SimpleMessage)

@@ -48,6 +48,7 @@ public class TitleActivity extends AppCompatActivity {
                         intent.putExtra("listOfCards",new Gson().toJson(listOfCards));
                         intent.putExtra("categories",new Gson().toJson(categories));
                         intent.putExtra("word",inputTitle.getText().toString());
+                        intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
                         startActivity(intent);
                     }
                     @Override

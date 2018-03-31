@@ -1,5 +1,6 @@
 package ssn.codebreakers.pecsinstructor;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.db.models.VideoMessage;
 import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
+import ssn.codebreakers.pecsinstructor.helpers.ProgressCallback;
 
 public class OptionsActivity extends AppCompatActivity {
 
@@ -45,6 +47,9 @@ public class OptionsActivity extends AppCompatActivity {
         GridView gridView2 = findViewById(R.id.gridView2);
         GridView gridView3 = findViewById(R.id.gridView3);
 
+        final ProgressDialog progressDialog = new ProgressDialog(OptionsActivity.this);
+        progressDialog.setMessage("Uploading Videos");
+        progressDialog.setProgress(0);
 
 
         if (tmpCards.size() >= 0 && tmpCards.get(0) != null) {
@@ -70,10 +75,26 @@ public class OptionsActivity extends AppCompatActivity {
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
-                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, "984fefc9-5290-48d6-b576-305ab9e9ebf2", new Callback() {
+                    progressDialog.show();
+                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, getIntent().getStringExtra("user_id"), new Callback() {
                         @Override
                         public void onSuccess(Object result) {
 
+                        }
+
+                        @Override
+                        public void onError(Object error) {
+
+                        }
+                    }, new ProgressCallback() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            finish();
+                        }
+
+                        @Override
+                        public void onProgress(int progress) {
+                            progressDialog.setProgress(progress);
                         }
 
                         @Override
@@ -109,10 +130,26 @@ public class OptionsActivity extends AppCompatActivity {
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
-                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, "984fefc9-5290-48d6-b576-305ab9e9ebf2", new Callback() {
+                    progressDialog.show();
+                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, getIntent().getStringExtra("user_id"), new Callback() {
                         @Override
                         public void onSuccess(Object result) {
 
+                        }
+
+                        @Override
+                        public void onError(Object error) {
+
+                        }
+                    }, new ProgressCallback() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            finish();
+                        }
+
+                        @Override
+                        public void onProgress(int progress) {
+                            progressDialog.setProgress(progress);
                         }
 
                         @Override
@@ -147,10 +184,26 @@ public class OptionsActivity extends AppCompatActivity {
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
-                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, "984fefc9-5290-48d6-b576-305ab9e9ebf2", new Callback() {
+                    progressDialog.show();
+                    APIHelper.saveAndSendMessage(OptionsActivity.this, videoMessage, getIntent().getStringExtra("user_id"), new Callback() {
                         @Override
                         public void onSuccess(Object result) {
 
+                        }
+
+                        @Override
+                        public void onError(Object error) {
+
+                        }
+                    }, new ProgressCallback() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            finish();
+                        }
+
+                        @Override
+                        public void onProgress(int progress) {
+                            progressDialog.setProgress(progress);
                         }
 
                         @Override
