@@ -104,6 +104,13 @@ public class MessageAdapter extends BaseAdapter {
             TextView textView = gridView.findViewById(R.id.message);
             if(videoMessage != null)
                 textView.setText(videoMessage.getTitle());
+            TextView fromtext=gridView.findViewById(R.id.from);
+            if(messages.get(i).getFromUserId().equals(CommonUtils.getSelfUserID(context)))
+                fromtext.setText("you");
+            else {
+                User user = UserHelper.getUser(context, messages.get(i).getFromUserId());
+                fromtext.setText(user.getName());
+            }
         }
 
 
