@@ -86,9 +86,8 @@ public class MessageAdapter extends BaseAdapter {
                 cards.add(card);
                 System.out.println("card name"+card.getText());
             }
-            CardGridAdapter cardGridAdapter = new CardGridAdapter(context, cards);
-            GridView simpleTextGridView = gridView.findViewById(R.id.message);
-            simpleTextGridView.setAdapter(cardGridAdapter);
+            TextView simpleTextGridView = gridView.findViewById(R.id.message);
+            simpleTextGridView.setText(simpleMessage.getText());
             TextView fromtext=gridView.findViewById(R.id.from);
             if(messages.get(i).getFromUserId().equals(CommonUtils.getSelfUserID(context)))
                 fromtext.setText("you");

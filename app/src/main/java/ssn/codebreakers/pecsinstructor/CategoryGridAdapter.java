@@ -95,8 +95,14 @@ public class CategoryGridAdapter extends BaseAdapter {
             String imagePath = cards.get(0).getLocalImagePath();
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath, bmOptions);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
-            imageView.setImageBitmap(bitmap);
+            if(bitmap!= null)
+            {
+                bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                imageView.setImageBitmap(bitmap);
+            }else
+            {
+                imageView.setImageResource(R.drawable.none);
+            }
         }
         else {
             imageView.setImageResource(R.drawable.none);

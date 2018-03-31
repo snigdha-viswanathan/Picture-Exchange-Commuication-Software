@@ -18,9 +18,12 @@ public class CardHelper
         if(card.getImageId() != null && card.getLocalImagePath() == null)//download image from s3
             S3Helper.downloadCardImage(context, card);
 
-        LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        localDatabase.cardDao().addCard(card);
-        localDatabase.close();
+        try {
+            LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+            localDatabase.cardDao().addCard(card);
+            localDatabase.close();
+
+        }catch (Exception e){e.printStackTrace();}
     }
 
     public static Card getCard(Context context, String id)

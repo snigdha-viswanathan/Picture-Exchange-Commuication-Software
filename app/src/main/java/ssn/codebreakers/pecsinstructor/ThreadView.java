@@ -14,6 +14,7 @@ import java.util.List;
 
 import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.db.models.Message;
@@ -35,7 +36,15 @@ public class ThreadView extends AppCompatActivity {
         speak_btn=(Button)findViewById(R.id.speak_btn);
         rec_video_btn=(Button)findViewById(R.id.rec_video_btn);
         listView = findViewById(R.id.listview);
-
+        speak_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String userId = getIntent().getStringExtra("user_id");
+                Intent intent=new Intent(ThreadView.this,DeckChooserActivity.class);
+                intent.putExtra("user_id", userId);
+                startActivity(intent);
+            }
+        });
         rec_video_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,45 +57,18 @@ public class ThreadView extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
         List<Message> messages = MessageHelper.getAllMessages(getApplicationContext());
         System.out.println("message count = "+messages.size());
         MessageAdapter messageAdapter = new MessageAdapter(getApplicationContext(), messages);
         listView.setAdapter(messageAdapter);
     }
-    public void speech(View view) {
-        SpeechHelper speechHelper = new SpeechHelper(getApplicationContext(), this);
-        speechHelper.speechToText();
-    }
     //result of the speechtotext
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SPEECH_REQUEST_ID)
-        {
-            if (resultCode == RESULT_OK && data != null)
-            {
-                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                String spokenText = result.get(0);//spoken text
-                System.out.println("test output = "+ spokenText);
-                final List<List<Card>> listOfCards = new ArrayList<>();
-                List<Category> categoryList = new ArrayList<>();
-                APIHelper.getCardsForSentence(getApplicationContext(), listOfCards, categoryList, spokenText, new Callback() {
-                    @Override
-                    public void onSuccess(Object result) {
-                        for (List<Card> cards : listOfCards ) {
-                            for(Card card:cards) {
-                                CardHelper.addCard(ThreadView.this,card);
-                            }
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(Object error) {
-
-                    }
-                });
-            }
-        }
-    }
 }

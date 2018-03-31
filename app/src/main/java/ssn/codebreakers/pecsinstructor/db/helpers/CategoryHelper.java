@@ -12,9 +12,12 @@ public class CategoryHelper
 {
     public static void addCategory(Context context, Category category)
     {
+        try{
         LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         localDatabase.categoryDao().addCategory(category);
         localDatabase.close();
+
+        }catch (Exception e){e.printStackTrace();}
     }
 
     public static Category getCategory(Context context, String categoryId)
