@@ -4,12 +4,19 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
+import ssn.codebreakers.pecsinstructor.db.models.Card;
+import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.db.models.User;
+import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
+import ssn.codebreakers.pecsinstructor.helpers.Callback;
 import ssn.codebreakers.pecsinstructor.helpers.SpeechHelper;
 
 import static ssn.codebreakers.pecsinstructor.helpers.SpeechHelper.SPEECH_REQUEST_ID;
@@ -34,5 +41,41 @@ public class ThreadView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public void speech(View view) {
+        SpeechHelper speechHelper = new SpeechHelper(getApplicationContext(), this);
+        speechHelper.speechToText();
+    }
+    //result of the speechtotext
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SPEECH_REQUEST_ID)
+        {
+            if (resultCode == RESULT_OK && data != null)
+            {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String spokenText = result.get(0);//spoken text
+                System.out.println("test output = "+ spokenText);
+                final List<List<Card>> listOfCards = new ArrayList<>();
+                List<Category> categoryList = new ArrayList<>();
+                APIHelper.getCardsForSentence(getApplicationContext(), listOfCards, categoryList, spokenText, new Callback() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        for (List<Card> cards : listOfCards ) {
+                            for(Card card:cards) {
+                                CardHelper.addCard(ThreadView.this,card);
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Object error) {
+
+                    }
+                });
+            }
+        }
     }
 }
