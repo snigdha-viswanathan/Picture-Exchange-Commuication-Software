@@ -65,10 +65,15 @@ public class RecordSettings
     public static RecordSettings GetDefault(Activity activity)
     {
         RecordSettings recordSettings = new RecordSettings();
-        recordSettings.setBitRate(8000000);
-        recordSettings.setFrameRate(24);
+//        recordSettings.setBitRate(8000000);
+//        recordSettings.setFrameRate(24);
+//        recordSettings.setRecordAudio(true);
+//        recordSettings.setVideoResolution(1080);
+        recordSettings.setBitRate(1000000);
+        recordSettings.setFrameRate(15);
         recordSettings.setRecordAudio(true);
-        recordSettings.setVideoResolution(1080);
+        recordSettings.setVideoResolution(360);
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         recordSettings.setScreenWidth(displayMetrics.widthPixels);

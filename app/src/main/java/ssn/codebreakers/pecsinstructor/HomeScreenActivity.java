@@ -38,7 +38,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         final Button fileUploaderButton = findViewById(R.id.fileUploaderButton);
         final Button databaseButton = findViewById(R.id.databaseButton);
         final Button recordVideoButton = findViewById(R.id.recordVideo);
-
+        Button game = findViewById(R.id.game);
         //open imagepicker sample activity on button click
         imagePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +67,12 @@ public class HomeScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), TitleActivity.class));
             }
         });
+        game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),GameScreenActivity.class ));
+            }
+        });
 
         //add these two lines in the starting activity
         CommonUtils.checkAndAskFilePermission(this);
@@ -81,6 +87,88 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             }
         });
+        /*Category category=new Category();
+        category.setId(CommonUtils.getUniqueRandomID());
+        category.setName("animals");
+        CategoryHelper.addCategory(getApplicationContext(),category);
+
+        Card card=new Card();
+        card.setId(CommonUtils.getUniqueRandomID());
+        card.setCategoryId(category.getId());
+        card.setText("dog");
+        CardHelper.addCard(getApplicationContext(),card);
+
+        Card card1=new Card();
+        card1.setId(CommonUtils.getUniqueRandomID());
+        card1.setCategoryId(category.getId());
+        card1.setText("cat");
+        CardHelper.addCard(getApplicationContext(),card1);
+
+        Card card2=new Card();
+        card2.setId(CommonUtils.getUniqueRandomID());
+        card2.setCategoryId(category.getId());
+        card2.setText("elephant");
+        CardHelper.addCard(getApplicationContext(),card2);
+
+
+        Category category1=new Category();
+        category1.setId(CommonUtils.getUniqueRandomID());
+        category1.setName("colors");
+        CategoryHelper.addCategory(getApplicationContext(),category1);
+
+        Card card3=new Card();
+        card3.setId(CommonUtils.getUniqueRandomID());
+        card3.setCategoryId(category1.getId());
+        card3.setText("red");
+        CardHelper.addCard(getApplicationContext(),card3);
+
+        Card card4=new Card();
+        card4.setId(CommonUtils.getUniqueRandomID());
+        card4.setCategoryId(category1.getId());
+        card4.setText("blue");
+        CardHelper.addCard(getApplicationContext(),card4);
+
+        Card card5=new Card();
+        card5.setId(CommonUtils.getUniqueRandomID());
+        card5.setCategoryId(category1.getId());
+        card5.setText("green");
+        CardHelper.addCard(getApplicationContext(),card5);
+
+
+        Category category2=new Category();
+        category2.setId(CommonUtils.getUniqueRandomID());
+        category2.setName("family");
+        CategoryHelper.addCategory(getApplicationContext(),category2);
+
+        Card card6=new Card();
+        card6.setId(CommonUtils.getUniqueRandomID());
+        card6.setCategoryId(category2.getId());
+        card6.setText("mother");
+        CardHelper.addCard(getApplicationContext(),card6);
+
+        Card card7=new Card();
+        card7.setId(CommonUtils.getUniqueRandomID());
+        card7.setCategoryId(category2.getId());
+        card7.setText("father");
+        CardHelper.addCard(getApplicationContext(),card7);
+
+        Card card8=new Card();
+        card8.setId(CommonUtils.getUniqueRandomID());
+        card8.setCategoryId(category2.getId());
+        card8.setText("sister");
+        CardHelper.addCard(getApplicationContext(),card8);
+        List<Category> categories =CategoryHelper.getAllCategories(getApplicationContext());
+        for(int i=0;i<categories.size();i++)
+        {
+            System.out.println("category="+categories.get(i).getName());
+            List<Card> cards = CardHelper.getCardsOfCategory(getApplicationContext(),categories.get(i).getId());
+            for(Card c: cards)
+            {
+                System.out.println("card = "+c);
+            }
+        }*/
+    }
+
 
         /*Category category=new Category();
         category.setId(CommonUtils.getUniqueRandomID());
@@ -152,18 +240,18 @@ public class HomeScreenActivity extends AppCompatActivity {
         card8.setCategoryId(category2.getId());
         card8.setText("sister");
         CardHelper.addCard(getApplicationContext(),card8);*/
-        List<Category> categories =CategoryHelper.getAllCategories(getApplicationContext());
+        /*List<Category> categories =CategoryHelper.getAllCategories(getApplicationContext());
         for(int i=0;i<categories.size();i++)
+    {
+        System.out.println("category="+categories.get(i).getName());
+        List<Card> cards = CardHelper.getCardsOfCategory(getApplicationContext(),categories.get(i).getId());
+        for(Card card: cards)
         {
-            System.out.println("category="+categories.get(i).getName());
-            List<Card> cards = CardHelper.getCardsOfCategory(getApplicationContext(),categories.get(i).getId());
-            for(Card card: cards)
-            {
-                System.out.println("card = "+card);
-            }
+            System.out.println("card = "+card);
         }
-
     }
+
+    }*/
     public void goToAnActivity(View view) {
         Intent Intent = new Intent(this,NewHomeScreen.class);
         startActivity(Intent);
