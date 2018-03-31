@@ -18,7 +18,11 @@ import android.widget.ListView;
         import android.widget.ListView;
         import android.widget.Toast;
 
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.UserHelper;
+import ssn.codebreakers.pecsinstructor.db.models.Card;
+import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.db.models.User;
 import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
@@ -74,7 +78,10 @@ public class NewHomeScreen extends AppCompatActivity {
         });
 
 
-
+        for(Category category:CategoryHelper.getAllCategories(getApplicationContext()))
+            System.out.println("ca " + category.getId());
+        Card card = CardHelper.getCard(getApplicationContext(), "994b3760-d58a-4ad9-974e-df942ef29441");
+        System.out.println("card cat "+card.getCategoryId());
     }
 
 
