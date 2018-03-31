@@ -5,36 +5,34 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
+import ssn.codebreakers.pecsinstructor.db.models.User;
 import ssn.codebreakers.pecsinstructor.helpers.SpeechHelper;
 
 import static ssn.codebreakers.pecsinstructor.helpers.SpeechHelper.SPEECH_REQUEST_ID;
 
 public class ThreadView extends AppCompatActivity {
-
+    Button speak_btn;
+    Button rec_video_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_view);
-    }
-    public void speech(View view) {
-        SpeechHelper speechHelper = new SpeechHelper(getApplicationContext(), this);
-        speechHelper.speechToText();
-    }
-    //result of the speechtotext
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SPEECH_REQUEST_ID)
-        {
-            if (resultCode == RESULT_OK && data != null)
-            {
-                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                String spokenText = result.get(0);//spoken text
-                System.out.println("test output = "+ spokenText);
+        speak_btn=(Button)findViewById(R.id.speak_btn);
+        rec_video_btn=(Button)findViewById(R.id.rec_video_btn);
+        rec_video_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
+                Bundle bundle = new Bundle();
+                //intent.putExtras(bundle);
+                final String userId = getIntent().getStringExtra("user_id");
+                intent.putExtra("user_id", userId);
+                startActivity(intent);
             }
-        }
+        });
     }
 }

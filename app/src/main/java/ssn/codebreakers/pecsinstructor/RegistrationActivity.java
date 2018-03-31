@@ -49,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onSuccess(Object result) {
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         sharedPreferences.edit().putBoolean("registered_already", true).apply();
-                        startActivity(new Intent(RegistrationActivity.this,HomeScreenActivity.class));
+                        startActivity(new Intent(RegistrationActivity.this,NewHomeScreen.class));
                         finish();
                     }
 
