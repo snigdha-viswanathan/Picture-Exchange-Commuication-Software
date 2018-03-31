@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
@@ -43,6 +44,10 @@ public class TitleActivity extends AppCompatActivity {
                             for(Card card:cards) {
                                 CardHelper.addCard(TitleActivity.this,card);
                             }
+                        }
+                        for(Category category: categories)
+                        {
+                            CategoryHelper.addCategory(getApplicationContext(), category);
                         }
                         Intent intent = new Intent(TitleActivity.this, RecordVideoActivity.class);
                         intent.putExtra("listOfCards",new Gson().toJson(listOfCards));
