@@ -18,6 +18,7 @@ import java.util.UUID;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.models.Category;
 import ssn.codebreakers.pecsinstructor.helpers.Callback;
+import ssn.codebreakers.pecsinstructor.helpers.CommonUtils;
 import ssn.codebreakers.pecsinstructor.helpers.FileUploader;
 import ssn.codebreakers.pecsinstructor.helpers.ImagePicker;
 import ssn.codebreakers.pecsinstructor.helpers.ProgressCallback;
@@ -40,7 +41,7 @@ public class AddCategoryActivity extends AppCompatActivity {
                 Category categoryobj = new Category();
                 CategoryName = findViewById(R.id.CategoryId);
                 System.out.println("CateName"+CategoryName.getText().toString());
-                categoryobj.setId(CategoryName.getText().toString());
+                categoryobj.setId(CommonUtils.getUniqueRandomID());
                 categoryobj.setName(CategoryName.getText().toString());
                 acknowledge = findViewById(R.id.acknowledge);
                 try {
