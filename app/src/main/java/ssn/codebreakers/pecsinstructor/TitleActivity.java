@@ -1,5 +1,6 @@
 package ssn.codebreakers.pecsinstructor;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
+
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Perspective");
         actionBar.setDisplayShowHomeEnabled(true);
@@ -42,6 +45,10 @@ public class TitleActivity extends AppCompatActivity {
                 final List<List<Card>> listOfCards = new ArrayList<>();
 
                 final List<Category> categories = new ArrayList<>();
+
+                final ProgressDialog progressDialog = new ProgressDialog(TitleActivity.this);
+                progressDialog.setProgress(0);
+                progressDialog.show();
                 APIHelper.getCardsForWord(TitleActivity.this,listOfCards,categories,inputTitle.getText().toString(),new Callback(){
                     @Override
                     public void onSuccess(Object result) {
