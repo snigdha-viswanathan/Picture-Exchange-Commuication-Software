@@ -2,6 +2,7 @@ package ssn.codebreakers.pecsinstructor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,11 @@ public class OptionsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Perspective");
+        actionBar.setDisplayShowHomeEnabled(true);
+
         Gson gson = new Gson();
         final List<List<Card>> tmpCards = gson.fromJson(getIntent().getStringExtra("listOfCards"), new TypeToken<List<List<Card>>>() {
         }.getType());

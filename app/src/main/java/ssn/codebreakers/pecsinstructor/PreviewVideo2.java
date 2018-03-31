@@ -1,6 +1,7 @@
 package ssn.codebreakers.pecsinstructor;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,11 @@ public class PreviewVideo2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_video2);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Perspective");
+        actionBar.setDisplayShowHomeEnabled(true);
+
         VideoView preview = (VideoView) findViewById(R.id.Preview);
         String videoUrl2 = getIntent().getStringExtra("video_url2");
 
@@ -43,6 +49,7 @@ public class PreviewVideo2 extends AppCompatActivity {
                 intent.putExtra("video_url2", getIntent().getStringExtra("video_url2"));
                 intent.putExtra("word",getIntent().getStringExtra("word"));
                 startActivity(intent);
+                finish();
             }
         });
     }
