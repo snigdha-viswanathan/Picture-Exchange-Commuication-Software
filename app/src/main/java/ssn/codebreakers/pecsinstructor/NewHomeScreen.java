@@ -25,11 +25,13 @@ import ssn.codebreakers.pecsinstructor.helpers.Callback;
 
 public class NewHomeScreen extends AppCompatActivity {
     ListView listView;
+    Button galleryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_home_screen);
+        galleryButton = findViewById(R.id.gallery_button);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean registeredAlready = sharedPreferences.getBoolean("registered_already", false);
         System.out.println("reg"+registeredAlready);
@@ -53,6 +55,12 @@ public class NewHomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+       galleryButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(getApplicationContext(), GalleryActivity.class));
+           }
+       });
         APIHelper.updateFCMToken(getApplicationContext(), new Callback() {
             @Override
             public void onSuccess(Object result) {

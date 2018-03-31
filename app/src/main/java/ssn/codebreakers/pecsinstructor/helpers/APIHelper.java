@@ -16,8 +16,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.GenericSignatureFormatError;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.SimpleMessageHelper;
@@ -40,7 +44,7 @@ public class APIHelper
      * @param messageObject VideoMessage object or SimpleMessage object
      * @param toUserId user id to send message
      */
-    public static void saveAndSendMessage(Context context, Object messageObject, String toUserId, final Callback callback, final ProgressCallback uploadCallback)
+    public static void saveAndSendMessage(final Context context, Object messageObject, String toUserId, final Callback callback, final ProgressCallback uploadCallback)
     {
         try{
             Message message = new Message();
@@ -87,14 +91,38 @@ public class APIHelper
                 });
                 message.setMessageType(Message.VIDEO_MESSAGE);
                 message.setMessageObjectId(videoMessage.getId());
-                VideoMessageHelper.addVideoMessage(context, (VideoMessage)messageObject);
+                VideoMessage videoMsg = (VideoMessage) messageObject;
+                List<String> cardIds = videoMsg.getCardIds();
+                List<Card> cards = new ArrayList<>();
+                List<Category> categories= new ArrayList<>();
+                for ( String id: cardIds) {
+                    Card card = CardHelper.getCard(context,id);
+                    cards.add(card);
+                    categories.add(CategoryHelper.getCategory(context,card.getCategoryId()));
+                }
+                VideoMessageHelper.addVideoMessage(context, videoMsg);
+
                 parameters.put("video_message", new Gson().toJson(messageObject));
+                parameters.put("cards",new Gson().toJson(cards));
+                parameters.put("categories",new Gson().toJson(categories));
             }else if(messageObject instanceof SimpleMessage)
             {
                 message.setMessageType(Message.SIMPLE_MESSAGE);
                 message.setMessageObjectId(((SimpleMessage) messageObject).getId());
                 SimpleMessageHelper.addSimpleMessage(context, (SimpleMessage) messageObject);
+                SimpleMessage simpleMessage = (SimpleMessage) messageObject;
+                List<String> cardIds = simpleMessage.getCardIds();
+                List<Card> cards = new ArrayList<>();
+                List<Category> categories= new ArrayList<>();
+                for ( String id: cardIds) {
+                    Card card = CardHelper.getCard(context,id);
+                    cards.add(card);
+                    categories.add(CategoryHelper.getCategory(context,card.getCategoryId()));
+                }
                 parameters.put("simple_message", new Gson().toJson(messageObject));
+                parameters.put("cards",new Gson().toJson(cards));
+                parameters.put("categories",new Gson().toJson(categories));
+
             }else
             {
                 throw new RuntimeException("messageObject must be of type SimpleMessage or VideoMessage");
