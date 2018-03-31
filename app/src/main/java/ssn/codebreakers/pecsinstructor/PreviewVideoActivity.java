@@ -40,6 +40,7 @@ public class PreviewVideoActivity extends AppCompatActivity {
             intent.putExtra("categories",getIntent().getStringExtra("categories"));
             intent.putExtra("video_url1", getIntent().getStringExtra("video_url1"));
             intent.putExtra("word",getIntent().getStringExtra("word"));
+            intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
             startActivity(intent);
          }
          });
