@@ -77,8 +77,8 @@ public class OptionsActivity extends AppCompatActivity {
                     for (Card card : tmpCards.get(0)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                        cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
@@ -132,8 +132,8 @@ public class OptionsActivity extends AppCompatActivity {
                     for (Card card : tmpCards.get(1)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                            cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
@@ -186,8 +186,8 @@ public class OptionsActivity extends AppCompatActivity {
                     for (Card card : tmpCards.get(2)) {
                         if (card.getText().trim().equals(word)) {
                             successCardId = card.getId();
-                            cardIds.add(card.getId());
                         }
+                        cardIds.add(card.getId());
                     }
                     videoMessage.setCorrectCardId(successCardId);
                     videoMessage.setCardIds(cardIds);
