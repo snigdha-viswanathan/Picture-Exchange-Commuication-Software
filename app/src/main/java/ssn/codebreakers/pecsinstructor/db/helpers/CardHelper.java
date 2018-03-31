@@ -9,6 +9,7 @@ import java.util.List;
 import ssn.codebreakers.pecsinstructor.db.LocalDatabase;
 import ssn.codebreakers.pecsinstructor.db.models.Card;
 import ssn.codebreakers.pecsinstructor.helpers.S3Helper;
+import java.util.Random;
 
 public class CardHelper
 {
@@ -18,9 +19,12 @@ public class CardHelper
         if(card.getImageId() != null && card.getLocalImagePath() == null)//download image from s3
             S3Helper.downloadCardImage(context, card);
 
-        LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        localDatabase.cardDao().addCard(card);
-        localDatabase.close();
+        try {
+            LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+            localDatabase.cardDao().addCard(card);
+            localDatabase.close();
+
+        }catch (Exception e){e.printStackTrace();}
     }
 
     public static Card getCard(Context context, String id)
@@ -29,6 +33,16 @@ public class CardHelper
         Card card = localDatabase.cardDao().get(id);
         localDatabase.close();
         return card;
+    }
+
+    public static Card getRandomCardOfCategory(Context context, String categoryId)
+    {
+        List<Card>  cards = getCardsOfCategory(context,categoryId);
+        Random random = new Random();
+        int randomId = random.nextInt(cards.size());
+        return cards.get(randomId);
+
+
     }
 
     public static List<Card> getCardsOfCategory(Context context, String categoryId)

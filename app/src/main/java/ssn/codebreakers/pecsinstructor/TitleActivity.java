@@ -1,6 +1,7 @@
 package ssn.codebreakers.pecsinstructor;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,10 @@ public class TitleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Perspective");
+        actionBar.setDisplayShowHomeEnabled(true);
 
         inputTitle = findViewById(R.id.input_title);
         okButton=findViewById(R.id.oks);
@@ -55,6 +60,7 @@ public class TitleActivity extends AppCompatActivity {
                         intent.putExtra("word",inputTitle.getText().toString());
                         intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
                         startActivity(intent);
+                        finish();
                     }
                     @Override
                     public  void  onError(Object result) {

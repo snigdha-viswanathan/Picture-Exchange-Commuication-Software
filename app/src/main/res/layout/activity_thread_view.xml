@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="SPEAK"
-            android:onClick="speech"
             android:layout_marginLeft="60dp"
             android:id="@+id/speak_btn"/>
         <Button

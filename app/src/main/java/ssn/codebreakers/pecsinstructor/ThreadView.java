@@ -4,12 +4,23 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
+import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
+import ssn.codebreakers.pecsinstructor.db.models.Card;
+import ssn.codebreakers.pecsinstructor.db.models.Category;
+import ssn.codebreakers.pecsinstructor.db.models.Message;
 import ssn.codebreakers.pecsinstructor.db.models.User;
+import ssn.codebreakers.pecsinstructor.helpers.APIHelper;
+import ssn.codebreakers.pecsinstructor.helpers.Callback;
 import ssn.codebreakers.pecsinstructor.helpers.SpeechHelper;
 
 import static ssn.codebreakers.pecsinstructor.helpers.SpeechHelper.SPEECH_REQUEST_ID;
@@ -17,12 +28,23 @@ import static ssn.codebreakers.pecsinstructor.helpers.SpeechHelper.SPEECH_REQUES
 public class ThreadView extends AppCompatActivity {
     Button speak_btn;
     Button rec_video_btn;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_view);
         speak_btn=(Button)findViewById(R.id.speak_btn);
         rec_video_btn=(Button)findViewById(R.id.rec_video_btn);
+        listView = findViewById(R.id.listview);
+        speak_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String userId = getIntent().getStringExtra("user_id");
+                Intent intent=new Intent(ThreadView.this,DeckChooserActivity.class);
+                intent.putExtra("user_id", userId);
+                startActivity(intent);
+            }
+        });
         rec_video_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,5 +56,19 @@ public class ThreadView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        List<Message> messages = MessageHelper.getAllMessages(getApplicationContext());
+        System.out.println("message count = "+messages.size());
+        MessageAdapter messageAdapter = new MessageAdapter(getApplicationContext(), messages);
+        listView.setAdapter(messageAdapter);
+    }
+    //result of the speechtotext
+
 }

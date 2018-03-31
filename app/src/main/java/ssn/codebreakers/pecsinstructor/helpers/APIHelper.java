@@ -296,6 +296,7 @@ public class APIHelper
                 @Override
                 public void onSuccess(Object result) {
                     JSONObject jsonResponse = (JSONObject) result;
+                    System.out.println("raw resp" + jsonResponse.toString());
                     Gson gson = new Gson();
                     try {
                         List<List<Card>> tmpCards = gson.fromJson(jsonResponse.getString("cards"), new TypeToken<List<List<Card>>>(){}.getType());

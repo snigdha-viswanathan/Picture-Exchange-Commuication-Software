@@ -2,6 +2,7 @@ package ssn.codebreakers.pecsinstructor;
 
 import android.content.Intent;
 import android.graphics.SurfaceTexture;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.TextureView;
@@ -32,6 +33,11 @@ public class RecordVideo3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_video3);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Incorrect video");
+        actionBar.setDisplayShowHomeEnabled(true);
+
         cameraPreviewView = findViewById(R.id.cameraPreview);
         startRecordingButton = findViewById(R.id.startRecordButton);
         stopRecordingButton = findViewById(R.id.stopRecordButton);
@@ -75,7 +81,8 @@ public class RecordVideo3 extends AppCompatActivity {
                 intent.putExtra("word",getIntent().getStringExtra("word"));
                 intent.putExtra("user_id",getIntent().getStringExtra("user_id"));
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "video recorded "+destinationFile3.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                finish();
+               // Toast.makeText(getApplicationContext(), "video recorded "+destinationFile3.getAbsolutePath(), Toast.LENGTH_LONG).show();
             }
         });
     }
