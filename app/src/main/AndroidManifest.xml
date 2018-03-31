@@ -15,13 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".HomeScreenActivity"></activity>
 
         <service android:name=".fcm.PECSFirebaseMessagingService">
             <intent-filter>
@@ -46,12 +40,28 @@
         <activity android:name=".GameLevelsActivity"></activity>
 
         <activity android:name=".NewHomeScreen" />
+        <activity android:name=".RecordVideoActivity" />
+        <activity android:name=".PreviewVideoActivity" />
+        <activity android:name=".RecordVideo2" />
+        <activity android:name=".PreviewVideo2" />
+        <activity android:name=".RecordVideo3" />
+        <activity android:name=".PreviewVideo3" />
+        <activity android:name=".TitleActivity" />
+        <activity android:name=".OptionsActivity" />
+        <activity android:name=".NewHomeScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ThreadView" />
-        <activity android:name=".RegistrationActivity"/>
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".CategoryCardsActivity" />
         <activity android:name=".AddCategoryActivity" />
         <activity android:name=".AddCardsActivity" />
+        <activity android:name=".DeckChooserActivity"></activity>
     </application>
 
 </manifest>

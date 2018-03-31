@@ -15,21 +15,26 @@ public class CardHelper
 {
     public static void addCard(Context context, Card card)
     {
+        System.out.println("image id"+card.getImageId()+":"+card.getLocalImagePath());
         if(card.getImageId() != null && card.getLocalImagePath() == null)//download image from s3
             S3Helper.downloadCardImage(context, card);
 
-        LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        localDatabase.cardDao().addCard(card);
-        localDatabase.close();
+        try {
+            LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+            localDatabase.cardDao().addCard(card);
+            localDatabase.close();
+
+        }catch (Exception e){e.printStackTrace();}
     }
 
-
-    public static void getCard(Context context, String id)
+    public static Card getCard(Context context, String id)
     {
         LocalDatabase localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "pecsi-local").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-        localDatabase.cardDao().get(id);
+        Card card = localDatabase.cardDao().get(id);
         localDatabase.close();
+        return card;
     }
+
     public static Card getRandomCardOfCategory(Context context, String categoryId)
     {
         List<Card>  cards = getCardsOfCategory(context,categoryId);

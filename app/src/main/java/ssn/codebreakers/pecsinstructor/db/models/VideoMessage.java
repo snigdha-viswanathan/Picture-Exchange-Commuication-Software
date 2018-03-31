@@ -24,7 +24,7 @@ public class VideoMessage
     private String localErrorVideoPath;
     @TypeConverters({ArrayListConverter.class})
     private List<String> cardIds;
-    private long correctCardId;
+    private String correctCardId;
 
     public String getId() {
         return id;
@@ -98,11 +98,11 @@ public class VideoMessage
         this.cardIds = cardIds;
     }
 
-    public long getCorrectCardId() {
+    public String getCorrectCardId() {
         return correctCardId;
     }
 
-    public void setCorrectCardId(long correctCardId) {
+    public void setCorrectCardId(String correctCardId) {
         this.correctCardId = correctCardId;
     }
 }

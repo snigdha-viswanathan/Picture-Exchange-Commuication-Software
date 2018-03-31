@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import ssn.codebreakers.pecsinstructor.helpers.Callback;
 import ssn.codebreakers.pecsinstructor.helpers.CommonUtils;
 
 public class HomeScreenActivity extends AppCompatActivity {
-
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         recordVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RecordVideoSampleActivity.class));
+                startActivity(new Intent(getApplicationContext(), TitleActivity.class));
             }
         });
         game.setOnClickListener(new View.OnClickListener() {
@@ -239,18 +240,18 @@ public class HomeScreenActivity extends AppCompatActivity {
         card8.setCategoryId(category2.getId());
         card8.setText("sister");
         CardHelper.addCard(getApplicationContext(),card8);*/
-        List<Category> categories =CategoryHelper.getAllCategories(getApplicationContext());
+        /*List<Category> categories =CategoryHelper.getAllCategories(getApplicationContext());
         for(int i=0;i<categories.size();i++)
+    {
+        System.out.println("category="+categories.get(i).getName());
+        List<Card> cards = CardHelper.getCardsOfCategory(getApplicationContext(),categories.get(i).getId());
+        for(Card card: cards)
         {
-            System.out.println("category="+categories.get(i).getName());
-            List<Card> cards = CardHelper.getCardsOfCategory(getApplicationContext(),categories.get(i).getId());
-            for(Card card: cards)
-            {
-                System.out.println("card = "+card);
-            }
+            System.out.println("card = "+card);
         }
-
     }
+
+    }*/
     public void goToAnActivity(View view) {
         Intent Intent = new Intent(this,NewHomeScreen.class);
         startActivity(Intent);

@@ -15,8 +15,13 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.lang.reflect.GenericSignatureFormatError;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import ssn.codebreakers.pecsinstructor.db.helpers.CardHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.CategoryHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.MessageHelper;
 import ssn.codebreakers.pecsinstructor.db.helpers.SimpleMessageHelper;
@@ -39,7 +44,7 @@ public class APIHelper
      * @param messageObject VideoMessage object or SimpleMessage object
      * @param toUserId user id to send message
      */
-    public static void saveAndSendMessage(Context context, Object messageObject, String toUserId, final Callback callback)
+    public static void saveAndSendMessage(final Context context, Object messageObject, String toUserId, final Callback callback, final ProgressCallback uploadCallback)
     {
         try{
             Message message = new Message();
@@ -50,16 +55,74 @@ public class APIHelper
             JSONObject parameters = new JSONObject();
             if(messageObject instanceof VideoMessage)
             {
+                final VideoMessage videoMessage = ((VideoMessage) messageObject);
+                final FileUploader fileUploader = new FileUploader(context);
+                System.out.println("local video path "+videoMessage.getVideoId()+" : "+videoMessage.getLocalVideoPath());
+                fileUploader.uploadFile(new File(videoMessage.getLocalVideoPath()), videoMessage.getVideoId(), new ProgressCallback() {
+                    @Override
+                    public void onSuccess(Object result) {
+                        fileUploader.uploadFile(new File(videoMessage.getLocalSuccessVideoPath()), videoMessage.getSuccessVideoId(), new ProgressCallback() {
+                            @Override
+                            public void onSuccess(Object result) {
+                                fileUploader.uploadFile(new File(videoMessage.getLocalErrorVideoPath()), videoMessage.getErrorVideoId(), uploadCallback);
+                            }
+
+                            @Override
+                            public void onProgress(int progress) {
+
+                            }
+
+                            @Override
+                            public void onError(Object error) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onProgress(int progress) {
+
+                    }
+
+                    @Override
+                    public void onError(Object error) {
+
+                    }
+                });
                 message.setMessageType(Message.VIDEO_MESSAGE);
-                message.setMessageObjectId(((VideoMessage) messageObject).getId());
-                VideoMessageHelper.addVideoMessage(context, (VideoMessage)messageObject);
+                message.setMessageObjectId(videoMessage.getId());
+                VideoMessage videoMsg = (VideoMessage) messageObject;
+                List<String> cardIds = videoMsg.getCardIds();
+                List<Card> cards = new ArrayList<>();
+                List<Category> categories= new ArrayList<>();
+                for ( String id: cardIds) {
+                    Card card = CardHelper.getCard(context,id);
+                    cards.add(card);
+                    categories.add(CategoryHelper.getCategory(context,card.getCategoryId()));
+                }
+                VideoMessageHelper.addVideoMessage(context, videoMsg);
+
                 parameters.put("video_message", new Gson().toJson(messageObject));
+                parameters.put("cards",new Gson().toJson(cards));
+                parameters.put("categories",new Gson().toJson(categories));
             }else if(messageObject instanceof SimpleMessage)
             {
                 message.setMessageType(Message.SIMPLE_MESSAGE);
                 message.setMessageObjectId(((SimpleMessage) messageObject).getId());
                 SimpleMessageHelper.addSimpleMessage(context, (SimpleMessage) messageObject);
+                SimpleMessage simpleMessage = (SimpleMessage) messageObject;
+                List<String> cardIds = simpleMessage.getCardIds();
+                List<Card> cards = new ArrayList<>();
+                List<Category> categories= new ArrayList<>();
+                for ( String id: cardIds) {
+                    Card card = CardHelper.getCard(context,id);
+                    cards.add(card);
+                    categories.add(CategoryHelper.getCategory(context,card.getCategoryId()));
+                }
                 parameters.put("simple_message", new Gson().toJson(messageObject));
+                parameters.put("cards",new Gson().toJson(cards));
+                parameters.put("categories",new Gson().toJson(categories));
+
             }else
             {
                 throw new RuntimeException("messageObject must be of type SimpleMessage or VideoMessage");
@@ -232,6 +295,7 @@ public class APIHelper
                 @Override
                 public void onSuccess(Object result) {
                     JSONObject jsonResponse = (JSONObject) result;
+                    System.out.println("raw resp" + jsonResponse.toString());
                     Gson gson = new Gson();
                     try {
                         List<List<Card>> tmpCards = gson.fromJson(jsonResponse.getString("cards"), new TypeToken<List<List<Card>>>(){}.getType());
