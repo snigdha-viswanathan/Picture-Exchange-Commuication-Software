@@ -16,11 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HomeScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".fcm.PECSFirebaseMessagingService">
@@ -50,7 +46,13 @@
         <activity android:name=".PreviewVideo3" />
         <activity android:name=".TitleActivity" />
         <activity android:name=".OptionsActivity" />
-        <activity android:name=".NewHomeScreen" />
+        <activity android:name=".NewHomeScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ThreadView" />
         <activity android:name=".RegistrationActivity"/>
         <activity android:name=".GalleryActivity" />
